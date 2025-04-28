@@ -4,7 +4,7 @@ import {styled} from '@linaria/react'
 import {Button, Col, Dropdown, Row, Skeleton, Space, Spin, Switch} from 'antd'
 import {ItemType} from 'antd/lib/menu/hooks/useItems'
 import {useLiveQuery} from 'dexie-react-hooks'
-import {flatten, isEmpty, keys, some, uniq, values} from 'lodash'
+import {flatten, isEmpty, keys, some, uniq, values, cloneDeep} from 'lodash'
 import {MenuInfo} from 'rc-menu/lib/interface'
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
@@ -20,6 +20,7 @@ import {addOpenNodes, collapseAllNodes, doneAppLoading, setOpenNodes, startAppLo
 import {
   clearSearch,
   PaneState,
+  ReadMode,
   setPaneFilter,
   setPaneFilteredCodes,
   setPaneOntology,
@@ -74,7 +75,16 @@ const OntologyViewer: React.FC<OntologyViewerProps> = ({onPaneAdd, onPaneClose, 
       })
     })
     combineLatest(...observables).subscribe((res) => {
-      const results: Codelist[] = res.map((r) => r.data.codelist)
+      const results: Codelist[] = res.map((r) => {
+        let codelist: Codelist = cloneDeep(r.data.codelist)
+
+        codelist.readonly = true
+        if (openConcepts.find((entry) => entry.id === codelist.id)?.mode == ReadMode.READWRITE) {
+          codelist.readonly = false
+        }
+
+        return codelist
+      })
       setMedicalConcepts(results)
       results.forEach((codelist) => {
         dispatch(updateTransient({codelist}))

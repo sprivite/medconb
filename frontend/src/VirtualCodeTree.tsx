@@ -351,9 +351,12 @@ export const ListCode: React.FC<ListCodeProps & {style: CSSProperties}> = memo(
                 codelist={c}
                 hasChildren={code.children_ids.length > 0}
                 forceContextMenu={code.i[c.id] !== 'NONE'}
-                // readonly={(c.children ?? []).length > 0}
                 onChange={(checked, flag) => {
-                  toggleCode(code, c.id, checked, flag)
+                  if (!c.readonly) {
+                    toggleCode(code, c.id, checked, flag)
+                  } else {
+                    alert('This codelist is read only. You can not make changes to it.')
+                  }
                 }}
                 background={colors[c.id]}
                 label={

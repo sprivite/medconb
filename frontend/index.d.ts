@@ -129,6 +129,7 @@ export type Codelist = {
   codesets: CodeSet[]
   transientCodesets: CodeSet[]
   containerHierarchy: ContainerSpec[]
+  readonly?: boolean
 }
 
 export type IndicatorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
