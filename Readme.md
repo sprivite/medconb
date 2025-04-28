@@ -1,5 +1,21 @@
 # Medical Concept Builder (MedConB)
 
+[![Build Status](https://github.com/Bayer-Group/medconb/actions/workflows/docker-build-deploy.yml/badge.svg)](https://github.com/Bayer-Group/medconb/actions/workflows/docker-build-deploy.yml)
+[![Documentation](https://img.shields.io/badge/Documentation-526CFE?logo=MaterialForMkDocs&logoColor=white)](https://bayer-group.github.io/medconb/)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Linting: Pylama](https://img.shields.io/badge/colinting-PyLama-000000.svg)](https://github.com/klen/pylama)
+
+## Contributions
+
+| **Role**                | **Contributor**                                                   |
+|-------------------------|-------------------------------------------------------------------|
+| Project Management      | [Alexander Vowinkel](https://github.com/kaktus42)                 |
+| Backend Development     | [Alexander Vowinkel](https://github.com/kaktus42)                 |
+| Frontend Development    | [Rajesh Sharma](https://github.com/broncha)                       |
+| UX & UI                 | Susanne Feldt                                                     |
+| Ideation                | [Alexander Hartenstein](https://github.com/a-hartens), Bayer-Team |
+
 ## Introduction
 
 Welcome to the Medical Concept Builder (MedConB), a pioneering tool designed to simplify the complex process of translating medical knowledge into a machine-readable format for studies utilizing Real World Data (RWD)[^1]. As the landscape of healthcare continuously evolves, the ability to efficiently encode medical transactions collected in hospitals and clinics becomes increasingly crucial. MedConB stands at the forefront of this initiative, empowering medical professionals and researchers to create reliable and high-quality studies with ease.
