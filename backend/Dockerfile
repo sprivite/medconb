@@ -1,6 +1,6 @@
 ARG IMAGE_TAG
 
-FROM ghcr.io/bayer-group/medconb/backend-base:$IMAGE_TAG
+FROM kaktus42acc/medconb-backend-base:$IMAGE_TAG
 
 ARG BUILD_VERSION=bar
 ENV MEDCONB_VERSION=$BUILD_VERSION
