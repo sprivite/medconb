@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Callable
 
+import confuse
 import redis
 from sqlalchemy import create_engine
 
@@ -46,14 +47,14 @@ def _create_sqlalchemy_sessionmaker(
     engine_medconb = create_engine(
         url=db_config["medconb"]["url"].get(str),
         future=True,
-        echo=db_config["medconb"]["echo"].get(bool),
+        echo=db_config["medconb"]["echo"].get(confuse.Optional(bool, default=False)),
         pool_pre_ping=True,
     )
 
     engine_ontology = create_engine(
         url=db_config["ontologies"]["url"].get(str),
         future=True,
-        echo=db_config["ontologies"]["echo"].get(bool),
+        echo=db_config["ontologies"]["echo"].get(confuse.Optional(bool, default=False)),
         pool_pre_ping=True,
     )
 

@@ -1,4 +1,4 @@
-ARG IMAGE_TAG
+ARG IMAGE_TAG=prod
 
 FROM kaktus42acc/medconb-backend-base:$IMAGE_TAG
 
