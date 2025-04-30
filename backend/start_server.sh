@@ -93,4 +93,4 @@ fi
 
 python helper/build_ontology_assets.py
 
-uvicorn --factory medconb:create_app $@
+uvicorn --factory medconb.app:create_app $@

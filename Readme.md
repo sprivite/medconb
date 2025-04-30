@@ -90,7 +90,7 @@ Make sure you have the `medconb` conda environment activated.
 
 ```bash
 cd backend
-MEDCONBDIR=. uvicorn --reload --factory medconb:create_app
+MEDCONBDIR=. uvicorn --reload --factory medconb.app:create_app
 ```
 
 You can now access the GraphQL playground at http://localhost:8000/graphql/. In order to send successful requests, you have to put the following into the "HTTP Headers" section (left bottom of the page).
