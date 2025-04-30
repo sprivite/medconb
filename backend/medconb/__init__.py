@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Callable
 
-import confuse
+import confuse  # type: ignore
 import redis
 from sqlalchemy import create_engine
 

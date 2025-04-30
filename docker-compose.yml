@@ -1,0 +1,49 @@
+services:
+  frontend:
+    image: kaktus42acc/medconb-frontend:main
+    ports:
+      - 3001:3001
+
+  backend:
+    image: kaktus42acc/medconb-backend:main
+    # build:
+    #   context: backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - IMAGE_TAG=prod
+    environment:
+      UVICORN_HOST: 0.0.0.0
+      # MEDCONB_INIT_DB: "true"
+      MEDCONB_INIT_DB: "force"
+      MEDCONB_DATABASE__TYPE: sqlalchemy
+      MEDCONB_DATABASE__MEDCONB__URL: postgresql://postgres:password@db/medconb
+      MEDCONB_DATABASE__ONTOLOGIES__URL: postgresql://postgres:password@db/ontologies
+      MEDCONB_CACHE__ENABLED: "false"
+      MEDCONB_CORS__ORIGINS: "*"
+      MEDCONB_AUTH__DEVELOP__TOKEN: my-dev-token
+      MEDCONB_AUTH__DEVELOP__USER_ID: 00000000-0000-0000-0001-000000000001
+    ports:
+      - 8000:8000
+
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dev
+    volumes:
+      - ./helper/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    ports:
+      - 5432:5432
+
+  cache:
+    image: redis:7.0.5
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8091:8080

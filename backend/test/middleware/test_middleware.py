@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-import confuse
+import confuse  # type: ignore
 import pytest
 
 import medconb.domain as d
