@@ -64,7 +64,7 @@ const HomeScreen = () => {
   const initEntityType = searchParams.get('entity_type')
 
   useEffect(() => {
-    doSearch()
+    void doSearch()
   }, [search, visibility, entityTypes])
 
   const {data: propData} = useQuery(FETCH_PROPERTIES_DEF, {
@@ -127,7 +127,7 @@ const HomeScreen = () => {
 
     const _entities: any = {}
     for (let i = 0; i < entityTypes.length; i++) {
-      const res = await query(entityTypes[i])
+      const res = await query(entityTypes[i], true)
       if (res) {
         _entities[entityTypes[i]] = res.data.searchEntities
       }

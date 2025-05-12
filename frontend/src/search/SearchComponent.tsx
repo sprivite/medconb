@@ -2,7 +2,7 @@ import {App, Button, Divider, Flex, Input, Space, Tooltip} from 'antd'
 import {Filter, Schema, Visibility} from '.'
 import {GlobalOutlined, UserOutlined} from '@ant-design/icons'
 import Icon from '@ant-design/icons/lib/components/Icon'
-import { SearchIcon, SharedIcon} from '../customIcons'
+import {SearchIcon, SharedIcon} from '../customIcons'
 import {without} from 'lodash'
 import {useState} from 'react'
 import EntityTypeIcon from '../components/EntityTypeIcon'
@@ -49,6 +49,13 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
     onEntityTypesChange(active ? [...entityTypes, element] : without(entityTypes, element))
   }
 
+  const handleSearchChange = (value: string) => {
+    setSearchString(value)
+    if (value.trim() === '') {
+      onSearch('')
+    }
+  }
+
   return (
     <div style={{padding: 16, paddingBottom: 32}}>
       <Flex gap={32}>
@@ -56,9 +63,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         <Space data-tour-target="__freetext-search__">
           <Input
             // prefix={<SearchOutlined />}
-            onChange={(e) => {
-              setSearchString(e.target.value)
-            }}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search within name and description..."
             value={searchString}
             // bordered={false}
