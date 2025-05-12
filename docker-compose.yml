@@ -1,8 +1,10 @@
 services:
   frontend:
     image: kaktus42acc/medconb-frontend:main
+    volumes:
+      - ./frontend/assets/config/config.example.json:/usr/share/nginx/html/config/config.json
     ports:
-      - 3001:3001
+      - 3001:80
 
   backend:
     image: kaktus42acc/medconb-backend:main
@@ -13,17 +15,23 @@ services:
     #     - IMAGE_TAG=prod
     environment:
       UVICORN_HOST: 0.0.0.0
-      # MEDCONB_INIT_DB: "true"
-      MEDCONB_INIT_DB: "force"
+      MEDCONB_INIT_DB: "true"
+      # MEDCONB_INIT_DB: "force"
       MEDCONB_DATABASE__TYPE: sqlalchemy
       MEDCONB_DATABASE__MEDCONB__URL: postgresql://postgres:password@db/medconb
       MEDCONB_DATABASE__ONTOLOGIES__URL: postgresql://postgres:password@db/ontologies
-      MEDCONB_CACHE__ENABLED: "false"
+      MEDCONB_CACHE__ENABLED: "true"
+      MEDCONB_CACHE__HOST: cache
       MEDCONB_CORS__ORIGINS: "*"
-      MEDCONB_AUTH__DEVELOP__TOKEN: my-dev-token
+      MEDCONB_AUTH__DEVELOP__TOKEN: any-bearer-token
       MEDCONB_AUTH__DEVELOP__USER_ID: 00000000-0000-0000-0001-000000000001
     ports:
       - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
 
   db:
     image: postgres:17
@@ -35,12 +43,22 @@ services:
       - ./helper/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     ports:
       - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
 
   cache:
     image: redis:7.0.5
     restart: unless-stopped
     ports:
       - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
 
   adminer:
     image: adminer

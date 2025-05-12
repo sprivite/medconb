@@ -1,6 +1,6 @@
 {
-  "graphql_endpoint": "https://localhost:8000/graphql/",
-  "graphql_endpoints": ["https://localhost:8000/graphql/"],
+  "graphql_endpoint": "http://localhost:8000/graphql/",
+  "graphql_endpoints": ["http://localhost:8000/graphql/"],
   "dev_token": "any-bearer-token",
   "show_version": true,
   "msal": {
