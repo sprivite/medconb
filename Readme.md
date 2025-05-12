@@ -108,3 +108,5 @@ cd frontend
 npm ci  # initially and if some dependencies change
 npm start
 ```
+
+### 7. Thanks!
